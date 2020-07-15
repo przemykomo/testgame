@@ -1,0 +1,23 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "dub",
+			"run": false,
+			"compiler": "dmd",
+			"archType": "x86_64",
+			"buildType": "debug",
+			"configuration": "application",
+			"_generated": true,
+			"problemMatcher": [
+				"$dmd"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"label": "dub-build",
+			"detail": "dub build --compiler=dmd -a=x86_64 -b=debug -c=application"
+		}
+	]
+}

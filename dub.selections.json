@@ -1,0 +1,10 @@
+{
+	"fileVersion": 1,
+	"versions": {
+		"derelict-gl3": "1.0.24",
+		"derelict-sdl2": "2.1.4",
+		"derelict-util": "2.0.6",
+		"dlib": "0.19.0",
+		"utga": "0.0.2"
+	}
+}
