@@ -1,10 +1,11 @@
 {
 	"fileVersion": 1,
 	"versions": {
-		"derelict-gl3": "1.0.24",
-		"derelict-sdl2": "2.1.4",
-		"derelict-util": "2.0.6",
+		"bindbc-loader": "0.3.1",
+		"bindbc-opengl": "0.13.0",
+		"bindbc-sdl": "0.19.0",
 		"dlib": "0.19.0",
-		"utga": "0.0.2"
+		"utga": "0.0.2",
+		"vfile": "0.1.2"
 	}
 }

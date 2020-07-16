@@ -2,8 +2,8 @@ module scene;
 
 import std.stdio : writeln;
 
-import derelict.sdl2.sdl;
-import derelict.opengl3.gl3;
+import bindbc.sdl;
+import bindbc.opengl;
 
 import dlib.image.io.png;
 import dlib.image.image;
@@ -22,17 +22,17 @@ class Scene
     ];
 
     private immutable float[] vertexBufferTextureCoordinates = [
-        -1, -1,
-        +1, -1,
-        +1, +1,
+        0.0f, 0.0f,
+        1.0f, 0.0f,
+        1.0f, 1.0f,
 
-        +1, +1,
-        -1, +1,
-        -1, -1
+        1.0f, 1.0f,
+        0.0f, 1.0f,
+        0.0f, 0.0f
     ];
 
     private GLuint vertexBuffer;
-    private GLuint colorBuffer;
+    private GLuint textureCoordinateBuffer;
     private GLuint programID;
     private GLuint vertexArrayID;
 
@@ -50,8 +50,8 @@ class Scene
                 vertexBufferPositions.ptr, GL_STATIC_DRAW);
 
         // load color data
-        glGenBuffers(1, &colorBuffer);
-        glBindBuffer(GL_ARRAY_BUFFER, colorBuffer);
+        glGenBuffers(1, &textureCoordinateBuffer);
+        glBindBuffer(GL_ARRAY_BUFFER, textureCoordinateBuffer);
         glBufferData(GL_ARRAY_BUFFER, float.sizeof * vertexBufferTextureCoordinates.length,
                 vertexBufferTextureCoordinates.ptr, GL_STATIC_DRAW);
 
@@ -116,7 +116,7 @@ class Scene
                 null  // array buffer offset
                 );
         glEnableVertexAttribArray(1);
-        glBindBuffer(GL_ARRAY_BUFFER, colorBuffer);
+        glBindBuffer(GL_ARRAY_BUFFER, textureCoordinateBuffer);
         glVertexAttribPointer(1, // attribute 1
                 2, // size
                 GL_FLOAT, // type
@@ -130,8 +130,10 @@ class Scene
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texture);
 
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
         SuperImage image = loadPNG("image.png");
         writeln(image.data);
@@ -146,7 +148,7 @@ class Scene
     ~this()
     {
         glDeleteBuffers(1, &vertexBuffer);
-        glDeleteBuffers(1, &colorBuffer);
+        glDeleteBuffers(1, &textureCoordinateBuffer);
         glDeleteVertexArrays(1, &vertexArrayID);
         glDeleteProgram(programID);
     }

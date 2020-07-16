@@ -3,8 +3,8 @@ module game;
 import std.stdio;
 import std.string : fromStringz;
 
-import derelict.sdl2.sdl;
-import derelict.opengl3.gl3;
+import bindbc.sdl;
+import bindbc.opengl;
 
 import scene;
 
@@ -22,13 +22,8 @@ private bool running = true;
 
 void main()
 {
-	DerelictSDL2.load();
-	DerelictGL3.load();
-
-	scope(exit)
-	{
-		DerelictGL3.unload();
-		DerelictSDL2.unload();
+	if (loadSDL() != sdlSupport) {
+		writeln("Wrong SDL support!");
 	}
 
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
@@ -49,7 +44,7 @@ void main()
 	if (SDL_GL_SetSwapInterval(1) < 0)
 		writeln("Failed to set VSync");
 
-	DerelictGL3.reload();
+	loadOpenGL();
 
 	Scene scene = new Scene();
 
