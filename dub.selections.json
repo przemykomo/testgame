@@ -5,6 +5,7 @@
 		"bindbc-opengl": "0.13.0",
 		"bindbc-sdl": "0.19.0",
 		"dlib": "0.19.0",
+		"imageformats": "7.0.2",
 		"utga": "0.0.2",
 		"vfile": "0.1.2"
 	}

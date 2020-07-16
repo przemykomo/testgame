@@ -20,8 +20,24 @@ class SDLException : Exception
 
 private bool running = true;
 
+enum MyEnum
+{
+    A,
+    B
+}
+
 void main()
 {
+    MyEnum f = MyEnum.A;
+    final switch(f) {
+        case MyEnum.A:
+            writeln("A!");
+        break;
+        case MyEnum.B:
+            writeln("B!");
+        break;
+    }
+
 	if (loadSDL() != sdlSupport) {
 		writeln("Wrong SDL support!");
 	}

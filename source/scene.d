@@ -8,6 +8,8 @@ import bindbc.opengl;
 import dlib.image.io.png;
 import dlib.image.image;
 
+import imageformats;
+
 /// A rendered scene.
 class Scene
 {
@@ -135,14 +137,18 @@ class Scene
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-        SuperImage image = loadPNG("image.png");
-        writeln(image.data);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image.width, image.height, 0, GL_RGB, GL_UNSIGNED_BYTE, image.data.ptr);
-        writeln(glGetError());
-        image.free();
+        // SuperImage image = loadPNG("image.png");
+        // glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image.width, image.height, 0, GL_RGB, GL_UNSIGNED_BYTE, image.data.ptr);
+        // image.free();
+
+        // IFImage image = read_image("image.png");
+        // glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image.w, image.h, 0, GL_RGB, GL_UNSIGNED_SHORT, image.pixels.ptr);
 
         glUseProgram(programID);
         glUniform1i(glGetUniformLocation(programID, "image"), 0);
+
+        // mat4 trans = rotationMatrix!float(1, 1.0f);
+        // glUniformMatrix4fv(glGetUniformLocation(programID, "transform"), 1, GL_FALSE, trans.arrayof.ptr);
     }
 
     ~this()
